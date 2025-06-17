@@ -54,7 +54,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							""
+							"let response = pm.response.json();\r",
+							"pm.environment.set('Cookie', response.token);"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -76,7 +77,13 @@
 					"type": "noauth"
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Cookie}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n  \"username\": \"lara@\",\r\n  \"password\": \"123\"\r\n}",
